@@ -1,0 +1,51 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: path-based-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+
+spec:
+  rules:
+  - host: myapp.example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend-svc
+            port:
+              number: 80
+
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-svc
+            port:
+              number: 80
+
+      - path: /mobile
+        pathType: Prefix
+        backend:
+          service:
+            name: mobile-svc
+            port:
+              number: 80
+
+      - path: /laptop
+        pathType: Prefix
+        backend:
+          service:
+            name: laptop-svc
+            port:
+              number: 80
+
+      - path: /cart
+        pathType: Prefix
+        backend:
+          service:
+            name: cart-svc
+            port:
+              number: 80

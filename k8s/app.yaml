@@ -1,0 +1,168 @@
+# FRONTEND
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-svc
+spec:
+  selector:
+    app: frontend
+  ports:
+  - port: 80
+    targetPort: 80
+
+# BACKEND
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: backend
+        image: hashicorp/http-echo:alpine
+        args:
+        - "-text=Backend API"
+        ports:
+        - containerPort: 5678
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-svc
+spec:
+  selector:
+    app: backend
+  ports:
+  - port: 80
+    targetPort: 5678
+
+# MOBILE
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mobile-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mobile
+  template:
+    metadata:
+      labels:
+        app: mobile
+    spec:
+      containers:
+      - name: mobile
+        image: yourdockerhub/mobile:v1
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mobile-svc
+spec:
+  selector:
+    app: mobile
+  ports:
+  - port: 80
+    targetPort: 3000
+
+# LAPTOP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laptop-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: laptop
+  template:
+    metadata:
+      labels:
+        app: laptop
+    spec:
+      containers:
+      - name: laptop
+        image: yourdockerhub/laptop:v1
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: laptop-svc
+spec:
+  selector:
+    app: laptop
+  ports:
+  - port: 80
+    targetPort: 3000
+
+# CART
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cart-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cart
+  template:
+    metadata:
+      labels:
+        app: cart
+    spec:
+      containers:
+      - name: cart
+        image: yourdockerhub/cart-service:v1
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MONGO_URL
+          value: mongodb://mongodb-svc:27017/cartdb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cart-svc
+spec:
+  selector:
+    app: cart
+  ports:
+  - port: 80
+    targetPort: 3000
