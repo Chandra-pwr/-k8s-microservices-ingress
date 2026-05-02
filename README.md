@@ -194,14 +194,15 @@ echo "<EXTERNAL-IP>  myapp.example.com" | sudo tee -a /etc/hosts
 
 ## 🌐 Application Endpoints
 
-| URL | Service | Description |
-|---|---|---|
-| `myapp.example.com/` | frontend-svc | 🏠 ShopZone Home Page |
-| `myapp.example.com/mobile` | mobile-svc | 📱 Mobile Phones Catalog |
-| `myapp.example.com/laptop` | laptop-svc | 💻 Laptops Catalog |
-| `myapp.example.com/cart` | cart-svc | 🛒 Shopping Cart (MongoDB) |
-| `myapp.example.com/api` | backend-svc | ⚙️ API Status Dashboard |
+## 🌐 Application Endpoints
 
+| Service | URL | Description |
+|---|---|---|
+| 🏠 Frontend | `http://ae25b6f9ea9484b31ab0452add2afc0c-31a8c1cec8261d41.elb.us-east-1.amazonaws.com/` | ShopZone Home Page |
+| ⚙️ Backend | `http://ae25b6f9ea9484b31ab0452add2afc0c-31a8c1cec8261d41.elb.us-east-1.amazonaws.com/api` | Backend Service |
+| 📱 Mobile | `http://ae25b6f9ea9484b31ab0452add2afc0c-31a8c1cec8261d41.elb.us-east-1.amazonaws.com/mobile` | Mobile Store |
+| 💻 Laptop | `http://ae25b6f9ea9484b31ab0452add2afc0c-31a8c1cec8261d41.elb.us-east-1.amazonaws.com/laptop` | Laptop Store |
+| 🛒 Cart | `http://ae25b6f9ea9484b31ab0452add2afc0c-31a8c1cec8261d41.elb.us-east-1.amazonaws.com/cart` | Cart Service (MongoDB) |
 ---
 
 ## 📡 Cart API Reference
@@ -300,3 +301,8 @@ kubectl describe pod <pod-name> | grep Image
 | Mobile Page | `screenshots/mobile.png` |
 | Laptop Page | `screenshots/laptop.png` |
 | Cart Page | `screenshots/cart.png` |
+
+
+> **Note:** This URL is temporary (AWS ELB). 
+> Cluster has been deleted after project completion to avoid AWS charges.
+> Screenshots above show the live working project.
